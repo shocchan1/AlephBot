@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-function recursive(dir) {
+function findFiles(dir) {
     const files = [];
     const items = fs.readdirSync(dir, { withFileTypes: true });
 
@@ -10,7 +10,7 @@ function recursive(dir) {
         const relativePath = path.resolve(itemPath);
 
         if (item.isDirectory()) {
-            files.push(...recursive(itemPath));
+            files.push(...findFiles(itemPath));
             continue;
         }
 
@@ -26,7 +26,4 @@ function recursive(dir) {
     return files;
 }
 
-module.exports = { recursive };
-
-const filep = recursive('./events');
-console.log(filep);
+module.exports = { findFiles };
