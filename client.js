@@ -9,4 +9,6 @@ const client = new Client({
   ]
 });
 
+client.commands = new Map();
+
 module.exports = client;
