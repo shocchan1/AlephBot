@@ -1,9 +1,9 @@
-const { findFile } = require('../utils/recursive');
+const { findFiles } = require('../utils/recursive');
 const path = require('path');
 
 function loadEvents(client) {
     const folder = path.join(__dirname, '../events');
-    const events = recursive(folder);
+    const events = findFiles(folder);
 
     for (const file of events) {
         try {
