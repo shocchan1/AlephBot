@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits, Collection } = require('discord.js');
 
 const client = new Client({
   intents: [
@@ -9,6 +9,6 @@ const client = new Client({
   ]
 });
 
-client.commands = new Map();
+client.commands = new Collection();
 
 module.exports = client;
