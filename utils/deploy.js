@@ -23,7 +23,12 @@ async function deployCommands() {
 
         const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
 
-        await rest.put(Routes.applicationCommands(process.env.CLIENT_ID), { body: commands });
+        const deployed = await rest.put(Routes.applicationCommands(process.env.CLIENT_ID), { body: commands });
+
+        for (const cmd of deployed) {
+            console.log(`[COMMAND] Successfully registered command ${cmd.name}`);
+        }
+        console.log(`[COMMAND] Successfully registered ${deployed.length} commands`);
     } catch (error) {
         console.warn('[COMMAND] An error occured.');
         console.error('[COMMAND] ', error);
