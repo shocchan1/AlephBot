@@ -58,3 +58,25 @@ This document outlines the architectural refactoring, error handling implementat
 - **Root Cause:** A mismatch in variable naming during module import. The loader attempted to call `recursive()`, but the imported utility function had been renamed.
 - **Resolution:** Corrected the destructuring correctly to `const { findFiles } = require('../utils/recursive)` and updated the execution logic to use `findFiles(folder)`.
 - **Result:** The error was resolved, and the bot successfully authenticated and logged into the Discord Gateway as `Aleph#9927`.
+
+# CHANGELOG & VERSION 0.3 DOCUMENTATION (INTERACTIVITY & UX)
+
+## Overview
+This version focused on transforming the bot a static responder into a fully interactive and secure application. The core upgrade include command throttling, permissiong gating, modular aesthetic response, and dynamnic user input handling.
+
+## Key Additions & Changes
+1. **Cooldown System (Rate Limiting)**
+- Integrated a dedicated `Collection` in the client instance to cache user execution timestamps.
+- Implemented time-math validation inside `interactionCreate.js` to block command spamming and enforce specific wait times per command.
+
+2. **Role Permissions & Security**
+- Applied `setDefaultMemberPermissions` at the command blueprint level, hiding restricted commands from unauthorized users.
+- Disabled DM execution for server-specific commands using `setDMPermission(false)`.
+
+3. **Modular Embed Architecture (SRP)**
+- Built a dedicated template function at `builders/embeds/defaultEmbed.js` to handle the visual aesthetics of bot response.
+- Decoupled visual design from command logic, ensuring scalability, easy theming, and consistency across all messages.
+
+4. **Dynamic Command Options**
+- Upgraded `SlashCommandBuilder` to accept required and optional user inputs (e.g., strings, user tags).
+- Extracted and processed user inputs via `interaction.options` dynamically.
