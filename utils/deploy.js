@@ -23,7 +23,7 @@ async function deployCommands() {
 
         const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
 
-        const deployed = await rest.put(Routes.applicationCommands(process.env.CLIENT_ID), { body: commands });
+        const deployed = await rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_TESTID), { body: commands });
 
         for (const cmd of deployed) {
             console.log(`[COMMAND] Successfully registered command ${cmd.name}`);
