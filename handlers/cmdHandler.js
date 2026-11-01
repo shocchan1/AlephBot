@@ -19,7 +19,7 @@ module.exports = function commandLoader(client) {
         } else {
             log.fatal({ item }, 'The file is missing \'data\' or \'execute\' property.');
         }
-
-        log.info(`${client.commands.size} commands loaded successfully.`);
     }
+    
+    log.info(`${client.commands.size} commands loaded successfully.`);
 }
