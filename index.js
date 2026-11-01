@@ -10,14 +10,14 @@ const createLog = require('./utils/logTypes');
 const log = createLog('core', 'MainBody');
 
 (async () => {
-    process.on('SIGINT', async () => {
+    process.on('SIGINT', () => {
         log.info('SIGINT signal received. Closing the bot...');
-        await shutdown(client);
+        shutdown(client);
     });
 
-    process.on('SIGTERM', async () => {
+    process.on('SIGTERM', () => {
         log.info('SIGTERM signal received. Closing the bot...');
-        await shutdown(client);
+        shutdown(client);
     });
 
     commandLoader(client);
