@@ -5,7 +5,7 @@ const createLog = require('../utils/logTypes');
 const log = createLog('core', 'EventLoader');
 
 module.exports = function commandLoader(client) {
-    const foldersPath = path.join(__dirname, 'commands');
+    const foldersPath = path.join(__dirname, '../commands');
     const files = findFiles(foldersPath);
 
     for (const file of files) {

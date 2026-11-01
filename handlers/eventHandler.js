@@ -5,7 +5,7 @@ const createLog = require('../utils/logTypes');
 const log = createLog('core', 'EventLoader');
 
 module.exports = function eventLoader(client) {
-    const foldersPath = path.join(__dirname, 'events');
+    const foldersPath = path.join(__dirname, '../events');
     const files = findFiles(foldersPath);
 
     let loadedEvents = 0;

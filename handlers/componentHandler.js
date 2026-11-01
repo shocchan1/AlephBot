@@ -5,7 +5,7 @@ const createLog = require('../utils/logTypes');
 const log = createLog('core', 'ComponentLoader');
 
 module.exports = function componentLoader(client) {
-    const foldersPath = path.join(__dirname, 'components');
+    const foldersPath = path.join(__dirname, '../components');
     const files = findFiles(foldersPath);
 
     for (const file of files) {
