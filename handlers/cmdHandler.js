@@ -2,7 +2,7 @@ const path = require('path');
 const findFiles = require('../utils/recursive');
 const createLog = require('../utils/logTypes');
 
-const log = createLog('core', 'EventLoader');
+const log = createLog('core', 'CommandLoader');
 
 module.exports = function commandLoader(client) {
     const foldersPath = path.join(__dirname, '../commands');
