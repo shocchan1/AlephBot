@@ -1,8 +1,8 @@
-const pino = require('../configs/pino-configs');
+const { logger } = require('../configs/pino-configs');
 
 module.exports = function flushLogs() {
     return new Promise((resolve, reject) => {
-        pino.flush((err) => {
+        logger.flush((err) => {
             if (err) {
                 reject(err);
                 return;

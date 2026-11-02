@@ -1,5 +1,5 @@
-const pino = require('../configs/pino-configs');
+const { logger } = require('../configs/pino-configs');
 
 module.exports = function createLog(sys, module) {
-    return pino.child({ sys, module });
+    return logger.child({ sys, module });
 }
