@@ -1,5 +1,4 @@
 const { Events } = require('discord.js');
-const GuildService = require('../database/services/GuildService');
 const createLog = require('../utils/logTypes');
 
 const log = createLog('events', 'Ready');
