@@ -4,7 +4,7 @@ const createLog = require('../utils/logTypes');
 
 const log = createLog('core', 'DatabaseConnection');
 
-module.exports = async function connectDB() {
+async function connectDB() {
     mongoose.connection.on('connected', () => {
         log.info(`Database connected to ${config.env}`);
     });
@@ -20,12 +20,24 @@ module.exports = async function connectDB() {
     try {
         if (!config.database.cluster) {
             log.error({ err: 'Database cluster is undefined' }, 'Database connection failed to start.');
-            process.exit(1);
+            process.exitCode = 1;
         } else {
             await mongoose.connect(config.database.cluster);
         }
     } catch (err) {
         log.error({ err }, 'Database connection failed.');
-        process.exit(1);
+        process.exitCode = 1;
     }
 }
+
+async function disconnectDB() {
+    try {
+        await mongoose.disconnect();
+        log.info('Database connection closed.');
+    } catch (err) {
+        log.error({ err }, 'Error occurred while disconnecting from the database.');
+        process.exitCode = 1;
+    }
+}
+
+module.exports = { connectDB, disconnectDB };
