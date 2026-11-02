@@ -5,7 +5,7 @@ const createLog = require('../utils/logTypes');
 const log = createLog('events', 'GuildCreateEvent');
 
 module.exports = {
-    name: Events.GuildCreate,,
+    name: Events.GuildCreate,
     once: false,
 
     async execute(guild) {
