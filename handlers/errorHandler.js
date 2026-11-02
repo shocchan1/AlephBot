@@ -1,4 +1,4 @@
-module.exports = async function errorHandler(shutdown) {
+module.exports = function errorHandler(shutdown) {
     process.on('unhandledRejection', () => 
     shutdown('Unhandled Promise Rejection'));
 

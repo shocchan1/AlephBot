@@ -1,8 +1,9 @@
 const createLog = require('./logTypes');
+const { disconnectDB } = require('../database/connection');
 
 const log = createLog('core', 'GracefulShutdown');
 
-module.exports = async function shutdown(client, disconnectDB, exitCode = 0, isShuttingDown = false) {
+module.exports = async function shutdown(client, exitCode = 0, isShuttingDown = false) {
     if (isShuttingDown) return;
     isShuttingDown = true;
 

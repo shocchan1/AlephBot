@@ -33,7 +33,6 @@ async function connectDB() {
 async function disconnectDB() {
     try {
         await mongoose.disconnect();
-        log.info('Database connection closed.');
     } catch (err) {
         log.error({ err }, 'Error occurred while disconnecting from the database.');
         process.exitCode = 1;
