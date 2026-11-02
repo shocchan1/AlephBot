@@ -1,6 +1,7 @@
 const createLog = require('./logTypes');
 const { disconnectDB } = require('../database/connection');
 const flushLogs = require('./logFlush');
+const closeLog = require('./logEnd');
 
 const log = createLog('core', 'GracefulShutdown');
 
@@ -20,6 +21,7 @@ module.exports = async function shutdown(client, exitCode = 0, isShuttingDown = 
         }
 
         await flushLogs();
+        await closeLog();
         process.exitCode = exitCode;
     } catch (error) {
         log.error('Error occurred while shutting down:', error);
