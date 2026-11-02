@@ -10,7 +10,7 @@ module.exports = {
 
     async execute(guild) {
         try {
-            await GuildService.createGuild(guild.id);
+            await GuildService.findOrCreateGuild(guild.id);
 
             log.info(`Joined new guild: ${guild.name} (${guild.id})`);
         } catch (err) {

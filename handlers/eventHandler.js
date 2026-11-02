@@ -12,7 +12,7 @@ module.exports = function eventLoader(client) {
 
     for (const file of files) {
         const event = require(file);
-        const item = path.basename(file.name);
+        const item = path.basename(file);
 
         if (!event.name || !event.execute) {
             log.fatal({ item }, 'The file is missing \'name\' or \'execute\' property');

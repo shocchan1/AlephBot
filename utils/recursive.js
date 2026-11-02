@@ -6,7 +6,7 @@ module.exports = function findFiles(dir, files = []) {
 
     for (const dirent of dirents) {
         if (dirent.isFile() && path.extname(dirent.name) === '.js') {
-            files.push(dirent.path, dirent.name);
+            files.push(path.join(dirent.parentPath, dirent.name));
         }
     }
 
