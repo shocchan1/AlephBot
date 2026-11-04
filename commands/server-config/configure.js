@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, PermissionFlagsBits, MessageFlags } = require('discord.js');
 const createLog = require('../../utils/logTypes');
-const { viewGuildSetting } = require('../../builders/index');
+const { viewGuildSetting, editGuildSetting } = require('../../builders/index');
 const GuildService = require('../../database/services/GuildService');
 
 const log = createLog('command', 'ServerConfiguration');
@@ -20,22 +20,38 @@ module.exports = {
         ),
 
     async execute(interaction) {
+        await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+
         const guild = interaction.guild;
         const user = interaction.user ?? interaction.member;
+        const guildData = await GuildService.findOrCreateGuild(guild.id);
 
         switch (interaction.options.getSubcommand()) {
             case 'view': {
                 try {
-                    const guildData = await GuildService.findOrCreateGuild(guild.id);
-
-                    await interaction.reply({ embeds: [viewGuildSetting(guild, guildData.toggles, user)], flags: MessageFlags.Ephemeral });
+                    await interaction.editReply({
+                        embeds: [viewGuildSetting(guild, guildData.toggles, user)]
+                    });
                 } catch (err) {
-                    log.error({ err }, 'An error occurred while viewing the server configurations.');
-                    await interaction.reply({ content: err.message, flags: MessageFlags.Ephemeral });
+                    log.error({ err }, 'An error occurred while viewing the server settings.');
+                    await interaction.editReply({
+                        content: err.message
+                    });
                 }
                 break;
             }
-            case 'edit': {}
+            case 'edit': {
+                try {
+                    await interaction.editReply({
+                        embeds: [editGuildSetting(guild, user)]
+                    });
+                } catch (err) {
+                    log.error({ err }, 'An error occurred while editing the server settings.');
+                    await interaction.editReply({
+                        content: err.message
+                    });
+                }
+            }
         }
     }
 }
