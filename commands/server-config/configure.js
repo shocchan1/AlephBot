@@ -1,6 +1,6 @@
-const { SlashCommandBuilder, PermissionFlagsBits, MessageFlags } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, MessageFlags, ActionRowBuilder } = require('discord.js');
 const createLog = require('../../utils/logTypes');
-const { viewGuildSetting, editGuildSetting } = require('../../builders/index');
+const { viewGuildSetting, editGuildSetting, panelGuildSettingSelect } = require('../../builders/index');
 const GuildService = require('../../database/services/GuildService');
 
 const log = createLog('command', 'ServerConfiguration');
@@ -43,7 +43,8 @@ module.exports = {
             case 'edit': {
                 try {
                     await interaction.editReply({
-                        embeds: [editGuildSetting(guild, user)]
+                        embeds: [editGuildSetting(guild, user)],
+                        components: [new ActionRowBuilder().addComponents(panelGuildSettingSelect())]
                     });
                 } catch (err) {
                     log.error({ err }, 'An error occurred while editing the server settings.');
