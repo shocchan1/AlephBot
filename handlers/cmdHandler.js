@@ -10,7 +10,7 @@ module.exports = function commandLoader(client) {
 
     for (const file of files) {
         const command = require(file);
-        const item = path.basename(file.name);
+        const item = path.basename(file);
 
         if ('data' in command && 'execute' in command) {
             client.commands.set(command.data.name, command);
