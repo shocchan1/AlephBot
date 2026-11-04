@@ -28,7 +28,7 @@ module.exports = {
                 try {
                     const guildData = await GuildService.findOrCreateGuild(guild.id);
 
-                    await interaction.reply({ embeds: [viewGuildSetting(guild, guildData.toggles, user)]})
+                    await interaction.reply({ embeds: [viewGuildSetting(guild, guildData.toggles, user)], flags: MessageFlags.Ephemeral });
                 } catch (err) {
                     log.error({ err }, 'An error occurred while viewing the server configurations.');
                     await interaction.reply({ content: err.message, flags: MessageFlags.Ephemeral });
