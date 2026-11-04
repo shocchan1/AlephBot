@@ -23,7 +23,7 @@ module.exports = {
         const guild = interaction.guild;
         const user = interaction.user ?? interaction.member;
 
-        switch (interaction.options.geSubcommand()) {
+        switch (interaction.options.getSubcommand()) {
             case 'view': {
                 try {
                     const guildData = await GuildService.findOrCreateGuild(guild.id);

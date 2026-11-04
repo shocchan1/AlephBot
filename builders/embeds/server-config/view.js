@@ -9,7 +9,7 @@ module.exports = function viewGuildSetting(guild, guildData, user) {
     return defaultEmbed({
         title: `${guild.name.toUpperCase()} CONFIGURATIONS`,
         description: 'You\'re viewing your server settings. You may edit the settings by typing /server-config edit.',
-        thumbnail: guild.displayAvatarURL({ dynamic: true, size: 256 }),
+        thumbnail: guild.iconURL({ dynamic: true, size: 256 }),
         fields: config,
         footer: { text: `Requested by ${user.tag ?? user.username}`, iconURL: user.displayAvatarURL() }
     });
