@@ -1,5 +1,7 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, MessageFlags } = require('discord.js');
 const createLog = require('../../utils/logTypes');
+const { viewGuildSetting } = require('../../builders/index');
+const GuildService = require('../../database/services/GuildService');
 
 const log = createLog('command', 'ServerConfiguration');
 
@@ -11,17 +13,28 @@ module.exports = {
         .addSubcommand(cmd =>
             cmd.setName('view')
                 .setDescription('Configure the bot language')
-                .setRequired(false)
         )
         .addSubcommand(cmd =>
             cmd.setName('edit')
                 .setDescription('Edit the server configuration')
-                .setRequired(false)
         ),
 
     async execute(interaction) {
+        const guild = interaction.guild;
+        const user = interaction.user ?? interaction.member;
+
         switch (interaction.geSubcommand()) {
-            case 'view': {}
+            case 'view': {
+                try {
+                    const guildData = await GuildService.findOrCreateGuild(guild.id);
+
+                    await interaction.reply({ embeds: [viewGuildSetting(guild, guildData, user)]})
+                } catch (err) {
+                    log.error({ err }, 'An error occurred while viewing the server configurations.');
+                    await interaction.reply({ content: err.message, flags: MessageFlags.Ephemeral });
+                }
+                break;
+            }
             case 'edit': {}
         }
     }
