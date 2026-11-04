@@ -1,6 +1,6 @@
 const { StringSelectMenuBuilder } = require('discord.js');
 
-module.exports = function defautlSelect(data) {
+module.exports = function defautlSelectString(data) {
     return new StringSelectMenuBuilder()
         .setCustomId(data.customId)
         .setPlaceholder(data.placeholder)
