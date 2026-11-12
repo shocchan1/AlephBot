@@ -3,3 +3,4 @@ test_modules/
 logs/
 configs/
 .env
+.git
