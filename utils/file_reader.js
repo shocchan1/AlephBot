@@ -7,10 +7,8 @@ module.exports = function findFiles(dir) {
   const items = fs.readdirSync(folders, { withFileTypes: true, recursive: true });
 
   for (const item of items) {
-    if (path.extname(item.name) === '.js') {
-      files.push(item);
-    } else {
-      continue;
+    if (!item.isDirectory() && path.extname(item.name) === '.js') {
+      files.push(item.name);
     }
   }
 
